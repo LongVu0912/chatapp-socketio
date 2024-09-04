@@ -70,11 +70,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-
-    <Head>
-        <title>{{ currentUser }}</title>
-    </Head>
-    <div class="md:mx-32">
+    <div class="mx-2 md:mx-32">
         <UCard class="">
             <template #header>
                 <div class="flex items-center justify-between text-primary">
@@ -94,9 +90,9 @@ onBeforeUnmount(() => {
             </template>
             <div class="flex flex-col md:flex-row">
                 <!-- Sidebar -->
-                <div class="px-6 py-4 border rounded-md border-primary">
+                <div class="px-6 py-4 border rounded-md md:min-h-[460px] border-primary">
                     <div>
-                        <UBadge size="md" color="white" variant="solid">
+                        <UBadge size="md" color="white" variant="solid" class="w-full">
                             <UIcon name="i-heroicons-chat-bubble-bottom-center-text" class="w-6 h-6 m-1" />
                             <div class="text-base">Room Name</div>
                         </UBadge>
@@ -109,34 +105,39 @@ onBeforeUnmount(() => {
                             <UIcon name="i-heroicons-user-group" class="w-6 h-6 m-1" />
                             <div class="text-base">Users: {{ users.length }}</div>
                         </UBadge>
-                        <div v-for="(user, i) in users" :key="i" class="mt-2 text-lg font-normal capitalize"
-                             :class="{ 'text-primary': user.username === route.query.username }">
-                            {{ user.username }}
+                        <div class="flex flex-row gap-1 mt-2 md:flex-col">
+                            <div v-for="(user, i) in users" :key="i" class="text-lg font-normal capitalize"
+                                 :class="{ 'text-primary': user.username === route.query.username }">
+                                [{{ user.username }}]
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- Chat -->
-                <div id="chatContainer" class="flex-1 px-2 py-2 overflow-y-auto h-96">
-                    <div class="flex w-full mb-3" v-for="(chat, i) in chats" :key="i" :class="{
-                        'justify-center': chat.username === 'Bot',
-                        'justify-end': chat.username === route.query.username,
-                        'justify-start': chat.username !== route.query.username,
-                    }">
-                        <UBadge class="flex flex-col items-start w-auto px-4 rounded-md"
-                                :variant="chat.username === 'Bot' ? 'outline' : 'solid'"
-                                :color="chat.username === route.query.username ? 'gray' : 'white'">
-                            <div class="flex flex-row items-center">
-                                <div class="mr-2 text-2xl text-primary ">
-                                    {{ chat.username }}
+                <div class="flex flex-row justify-between w-full mt-2">
+                    <div></div>
+                    <div id="chatContainer" class="flex-1 px-2 py-2 overflow-y-auto h-[300px] md:h-[460px]">
+                        <div class="flex w-full mb-3" v-for="(chat, i) in chats" :key="i" :class="{
+                            'justify-center': chat.username === 'Bot',
+                            'justify-end': chat.username === route.query.username,
+                            'justify-start': chat.username !== route.query.username,
+                        }">
+                            <UBadge class="flex flex-col items-start w-auto px-4 rounded-md"
+                                    :variant="chat.username === 'Bot' ? 'outline' : 'solid'"
+                                    :color="chat.username === route.query.username ? 'gray' : 'white'">
+                                <div class="flex flex-row items-center">
+                                    <div class="mr-2 text-2xl text-primary ">
+                                        {{ chat.username }}
+                                    </div>
+                                    <div class="text-lg text-black dark:text-gray-100">
+                                        {{ chat.time }}
+                                    </div>
                                 </div>
                                 <div class="text-lg text-black dark:text-gray-100">
-                                    {{ chat.time }}
+                                    {{ chat.text }}
                                 </div>
-                            </div>
-                            <div class="text-lg text-black dark:text-gray-100">
-                                {{ chat.text }}
-                            </div>
-                        </UBadge>
+                            </UBadge>
+                        </div>
                     </div>
                 </div>
             </div>

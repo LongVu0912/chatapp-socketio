@@ -13,7 +13,7 @@ const handleJoin = () => {
 </script>
 
 <template>
-    <div>
+    <div class="mx-2 md:mx-0">
         <UCard class="max-w-[700px] mx-auto" :ui="{ body: { padding: 'p-5 sm:p-8' } }">
             <template #header>
                 <div class="flex items-center justify-center gap-x-3 text-primary">
