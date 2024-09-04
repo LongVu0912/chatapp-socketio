@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Chat app</title>
+        <title>Chat App</title>
     </Head>
     <NuxtLayout>
         <NuxtPage />

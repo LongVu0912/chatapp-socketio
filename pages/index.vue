@@ -14,22 +14,22 @@ const handleJoin = () => {
 
 <template>
     <div>
-        <UCard class="max-w-[600px] mx-auto" :ui="{ body: { padding: 'p-5 sm:p-8' } }">
+        <UCard class="max-w-[700px] mx-auto" :ui="{ body: { padding: 'p-5 sm:p-8' } }">
             <template #header>
                 <div class="flex items-center justify-center gap-x-3 text-primary">
                     <UIcon
                            name="i-heroicons-chat-bubble-left-right"
-                           class="w-9 h-9 font-semibold" />
-                    <div class="text-primary font-semibold text-center text-3xl">Chat App</div>
+                           class="font-semibold w-9 h-9" />
+                    <div class="text-3xl font-semibold text-center text-primary">Chat App</div>
                 </div>
             </template>
 
-            <div :state="state" @submit="onSubmit" class="space-y-6">
-                <UFormGroup label="Username" name="username">
+            <div class="space-y-6">
+                <UFormGroup label="Username" name="username" size="xl">
                     <UInput v-model="state.username" />
                 </UFormGroup>
 
-                <UFormGroup label="Room" name="room">
+                <UFormGroup label="Room" name="room" size="xl">
                     <USelect v-model="state.room" :options="rooms" />
                 </UFormGroup>
 
