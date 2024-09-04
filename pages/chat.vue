@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import type { User } from '~/types/User';
 import { io, type Socket } from 'socket.io-client'
-import type { DefineComponent } from 'vue';
 const route = useRoute();
+
+useHead({
+    title: 'Chat App: ' + route.query.username,
+})
 
 interface Chat {
     username: string;
@@ -16,6 +19,8 @@ const chats = ref<Chat[]>([]);
 const users = ref<User[]>([]);
 const socket = ref<Socket>();
 const currentRoom = ref('');
+const currentUser = ref('');
+const notificationSound = new Audio('/notification.mp3');
 
 const sendMessage = async () => {
     if (!message.value) return;
@@ -32,6 +37,7 @@ const scrollToBottom = () => {
 
 onMounted(() => {
     const { username, room } = route.query as Partial<Chat>;
+    currentUser.value = username || '';
     if (!username || !room) {
         navigateTo('/');
     }
@@ -43,8 +49,14 @@ onMounted(() => {
     socket.value.emit('joinRom', { username, room })
     socket.value.on('message', (response: Chat) => {
         chats.value.push(response);
-        nextTick(() => scrollToBottom());
-    })
+        nextTick(() => {
+            scrollToBottom();
+            if (response.username !== currentUser.value) {
+                console.log('Notification Sound', response);
+                notificationSound.play();
+            }
+        });
+    });
     socket.value.on('roomUsers', (response: { room: string, users: User[] }) => {
         currentRoom.value = response.room
         users.value = response.users
@@ -58,6 +70,10 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+
+    <Head>
+        <title>{{ currentUser }}</title>
+    </Head>
     <div class="md:mx-32">
         <UCard class="">
             <template #header>
