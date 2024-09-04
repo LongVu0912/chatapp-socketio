@@ -1,5 +1,4 @@
 import { Server, type ServerOptions, type Socket } from "socket.io";
-import moment from "moment";
 import type { H3Event } from "h3";
 import type { User } from "~/types/User";
 import { userJoin, getRoomUsers, userLeave } from "./users";
@@ -67,9 +66,15 @@ export function initSocket(event: H3Event) {
 }
 
 export function formatMessage(username: string, text: string) {
+    const date = new Date();
+    date.setUTCHours(date.getUTCHours() + 7); // Adjust to GMT+7
+
+    const hours = String(date.getUTCHours()).padStart(2, "0");
+    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+
     return {
         username,
         text,
-        time: moment().format("h:mm a"),
+        time: `${hours}:${minutes}`,
     };
 }
