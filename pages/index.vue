@@ -14,13 +14,13 @@ const handleJoin = () => {
 
 <template>
     <div class="mx-2 md:mx-0">
-        <UCard class="max-w-[700px] mx-auto" :ui="{ body: { padding: 'p-5 sm:p-8' } }">
+        <UCard class="mx-auto max-w-[700px]" :ui="{ body: { padding: 'p-5 sm:p-8' } }">
             <template #header>
-                <div class="flex items-center justify-center gap-x-3 text-primary">
+                <div class="text-primary flex items-center justify-center gap-x-3">
                     <UIcon
                            name="i-heroicons-chat-bubble-left-right"
-                           class="font-semibold w-9 h-9" />
-                    <div class="text-3xl font-semibold text-center text-primary">Chat App</div>
+                           class="h-9 w-9 font-semibold" />
+                    <div class="text-primary text-center text-3xl font-semibold">Chat App</div>
                 </div>
             </template>
 
